@@ -1,0 +1,11 @@
+name: BankNotes
+version: ${project.version}
+main: com.dariasc.banknotes.BankNotes
+depend: [Vault]
+commands:
+  withdraw:
+    usage: /withdraw <amount>
+    description: Withdraw funds
+  deposit:
+    usage: /<command>
+    description: Deposit Bank Note in hand
