@@ -20,7 +20,7 @@ public class DepositCmd implements CommandExecutor {
                     if (Note.isNote(player.getItemInHand())) {
                         NoteManager.deposit(player);
                     } else {
-                        Lang.DEPOSIT_ITEM_NOT_NOTE.msg(player);
+                        Lang.DEPOSIT_INVALID_NOTE.msg(player);
                     }
                 } else {
                     Lang.COMMAND_NO_PERMISSION.msg(player);

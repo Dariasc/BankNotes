@@ -1,6 +1,5 @@
 package com.dariasc.banknotes.listeners;
 
-import com.dariasc.banknotes.BankNotes;
 import com.dariasc.banknotes.NoteManager;
 import com.dariasc.banknotes.util.Lang;
 import com.dariasc.banknotes.Note;
@@ -11,9 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-public class PlayerListener implements Listener {
-
-    private BankNotes plugin = BankNotes.plugin;
+public class NoteListener implements Listener {
 
     @EventHandler
     public void playerUseNote(PlayerInteractEvent event) {

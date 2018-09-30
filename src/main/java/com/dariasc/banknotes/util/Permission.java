@@ -1,12 +1,13 @@
 package com.dariasc.banknotes.util;
 
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public enum Permission {
 
     WITHDRAW(),
     DEPOSIT(),
     DEPOSIT_MASS(),
+    ADMIN(),
 
     ;
 
@@ -16,8 +17,8 @@ public enum Permission {
         this.permission = "banknotes." + name().toLowerCase().replace('_', '.');
     }
 
-    public boolean has(Player player) {
-        return player.hasPermission(permission);
+    public boolean has(CommandSender sender) {
+        return sender.hasPermission(permission);
     }
 
 }

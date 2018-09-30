@@ -4,6 +4,7 @@ import com.dariasc.banknotes.BankNotes;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -14,35 +15,39 @@ public enum Lang {
 
     COMMAND_NO_PERMISSION("&cYou do not have permission for that command"),
     PLAYER_ONLY_COMMAND("This command is only available to players"),
-    INVALID_ARGUMENTS("&cInvalid arguments"),
     UNKNOWN_ERROR("&cAn unknown error has happened"),
+
+    ADMIN_RELOAD("&aSuccessfully Reloaded"),
+    ADMIN_PLAYER_NOTFOUND("&cPlayer &l{player} &cnot found"),
+
+
+    INVALID_ARGUMENTS("&cInvalid arguments"),
     INVALID_AMOUNT("&cInvalid amount"),
     INSUFFICIENT_FUNDS("&cInsufficient funds"),
 
     DEPOSIT_SUCCESS("&aSuccessfully deposited &l{value}$"),
-    DEPOSIT_ITEM_NOT_NOTE("&cInvalid note item"),
+    DEPOSIT_INVALID_NOTE("&cInvalid note item"),
 
     WITHDRAW_SUCCESS("&aSuccessfully withdrawn &l{value}$"),
 
     ;
 
     private String def;
-    private FileConfiguration lang;
-    private final File LANG_FILE = new File(BankNotes.plugin.getDataFolder(), "messages.yml");
+    private static FileConfiguration lang;
+    private static final File LANG_FILE = new File(BankNotes.notes.getDataFolder(), "lang.yml");
 
     Lang(String def) {
         this.def = def;
-        saveDefault();
-        reload();
     }
 
-    public void reload() {
+    public static void reload() {
+        saveDefault();
         lang = YamlConfiguration.loadConfiguration(LANG_FILE);
     }
 
-    private void saveDefault() {
+    private static void saveDefault() {
         if (!LANG_FILE.exists()) {
-            BankNotes.plugin.saveResource("messages.yml", false);
+            BankNotes.notes.saveResource("lang.yml", false);
         }
     }
 
@@ -65,19 +70,17 @@ public enum Lang {
     }
 
     // Quick access msg methods
-    public void msg(Player player) {
-        msg(player, get());
-    }
-
-    public void msg(Player player, String msg) {
-        if (BankNotes.plugin.isPlaceholderApiHooked) {
-            msg = PlaceholderAPI.setPlaceholders(player, msg);
-        }
-        player.sendMessage(msg);
-    }
-
     public void msg(CommandSender sender) {
-        String msg = ChatColor.stripColor(get());
+        msg(sender, get());
+    }
+
+    public void msg(CommandSender sender, String msg) {
+        if (sender instanceof Player && BankNotes.notes.isPlaceholderApiHooked) {
+            msg = PlaceholderAPI.setPlaceholders((Player) sender, msg);
+        }
+        if (sender instanceof ConsoleCommandSender) {
+            msg = ChatColor.stripColor(msg);
+        }
         sender.sendMessage(msg);
     }
 
@@ -91,6 +94,10 @@ public enum Lang {
         public ModifiableLang replace(String tag, String replace) {
             string = string.replace(tag, replace);
             return this;
+        }
+
+        public ModifiableLang replace(String tag, Object replace) {
+            return replace(tag, replace.toString());
         }
 
         public void msg(Player player) {

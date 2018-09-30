@@ -28,6 +28,10 @@ public class WithdrawCmd implements CommandExecutor {
                     Lang.INVALID_AMOUNT.msg(player);
                     return true;
                 }
+                if (amount <= 0) {
+                    Lang.INVALID_AMOUNT.msg(player);
+                    return true;
+                }
 
                 NoteManager.withdraw(player, amount);
             } else {

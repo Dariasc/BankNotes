@@ -35,8 +35,8 @@
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <relocations>
                         <relocation>
-                            <pattern>com.github.tr7zw.Item-NBT-API</pattern>
-                            <shadedPattern>com.dariasc.banknotes.shade.com.github.tr7zw.Item-NBT-API</shadedPattern>
+                            <pattern>de.tr7zw.itemnbtapi</pattern>
+                            <shadedPattern>com.dariasc.banknotes.shade.tr7zw.nbt-api</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -84,7 +84,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <version>1.13.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -100,9 +100,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.tr7zw.Item-NBT-API</groupId>
+            <groupId>com.github.tr7zw</groupId>
             <artifactId>item-nbt-api</artifactId>
-            <version>17ac2d7</version>
+            <version>325c1a1cc6</version>
         </dependency>
     </dependencies>
 </project>
